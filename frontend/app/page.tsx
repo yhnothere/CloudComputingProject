@@ -31,7 +31,7 @@ export default function HomePage() {
               Single Origin · Specialty Grade · Ethically Sourced
             </p>
             <h1 className="text-6xl md:text-8xl font-bold text-white mb-6 tracking-tight leading-none">
-              Bean &<br />
+              Beans<br />
               <span className="text-amber-400">WTF</span>
             </h1>
             <p className="text-stone-300 text-lg md:text-xl mb-12 max-w-lg mx-auto leading-relaxed">
