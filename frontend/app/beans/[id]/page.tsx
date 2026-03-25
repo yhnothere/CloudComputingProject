@@ -26,8 +26,9 @@ export async function generateStaticParams() {
     return beans.map((b) => ({ id: b.bean_id }));
 }
 
-export default function BeanDetailPage({ params }: { params: { id: string } }) {
-    const bean = getBeanById(params.id);
+export default async function BeanDetailPage({ params }: { params: Promise<{ id: string }> }) {
+    const { id } = await params;
+    const bean = getBeanById(id);
     if (!bean) notFound();
 
     const grad = roastGradients[bean.roast_level] ?? "from-amber-300 to-amber-500";
