@@ -287,6 +287,9 @@ export function getBeanById(id: string): CoffeeBean | undefined {
 }
 
 export function getTagColor(note: string): string {
+    if (typeof note !== "string") {
+        return "bg-stone-200 text-stone-700"; // fallback style
+    }
     const n = note.toLowerCase();
     if (["jasmine", "rose", "floral", "orange blossom", "bergamot"].some((k) => n.includes(k)))                                         return "bg-purple-100 text-purple-700";
     if (["lemon", "citrus", "lime", "grapefruit", "orange zest"].some((k) => n.includes(k)))                                            return "bg-yellow-100 text-yellow-700";

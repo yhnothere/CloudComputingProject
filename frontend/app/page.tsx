@@ -3,6 +3,7 @@ import Navbar from "@/components/Navbar";
 import BeanCard from "@/components/BeanCard";
 import ChatBot from "@/components/ChatBot";
 import { beans } from "@/lib/beans";
+import BeanList from "@/components/BeanList";
 
 export default function HomePage() {
   return (
@@ -65,7 +66,7 @@ export default function HomePage() {
         </section>
 
         {/* ── Beans grid ───────────────────────────────────────── */}
-        <section id="beans" className="bg-stone-50">
+        {/* <section id="beans" className="bg-stone-50">
           <div className="bg-stone-900 text-white py-16 px-6">
             <div className="max-w-7xl mx-auto">
               <p className="text-amber-400 text-xs tracking-widest uppercase mb-3">Our Collection</p>
@@ -84,8 +85,8 @@ export default function HomePage() {
               ))}
             </div>
           </div>
-        </section>
-
+        </section> */}
+        <BeanList/>
       </main>
 
       {/* ── Chatbot ──────────────────────────────────────────── */}
