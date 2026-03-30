@@ -1,37 +1,14 @@
 "use client";
 import Navbar from "@/components/Navbar";
 import BeanCard from "@/components/BeanCard";
-import { beans } from "@/lib/beans";
-import { useState } from "react";
 import ChatBot from "@/components/ChatBot";
+import { beans } from "@/lib/beans";
 
 export default function HomePage() {
-  const [response, setResponse] = useState<string>("");
-  const [loading, setLoading] = useState<boolean>(false);
-
-  async function handleClick() {
-    setLoading(true);
-    setResponse("");
-    try {
-      const res = await fetch("/api/prompt", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ prompt: "Suggest a coffee bean for beginners" }),
-      });
-      const data = await res.json();
-      setResponse(data.result);
-    } catch {
-      setResponse("Something went wrong. Please try again.");
-    } finally {
-      setLoading(false);
-    }
-  }
-
   return (
     <>
       <Navbar />
       <main>
-
         {/* ── Hero ─────────────────────────────────────────────── */}
         <section className="relative h-screen flex items-center justify-center overflow-hidden bg-stone-900">
           <div className="absolute inset-0 bg-gradient-to-br from-stone-950 via-amber-950 to-stone-900" />
@@ -55,21 +32,6 @@ export default function HomePage() {
             <p className="text-stone-300 text-lg md:text-xl mb-12 max-w-lg mx-auto leading-relaxed">
               Sourced from the world&apos;s finest growing regions. Roasted to reveal every nuance, every note, every story.
             </p>
-
-            <button
-              onClick={handleClick}
-              disabled={loading}
-              className="relative z-50 mt-6 bg-white text-black px-6 py-2 rounded disabled:opacity-50 disabled:cursor-not-allowed"
-            >
-              {loading ? "Thinking..." : "Ask AI"}
-            </button>
-
-            {response && (
-              <p className="mt-4 text-stone-300 text-sm max-w-lg mx-auto leading-relaxed bg-stone-800/60 rounded-xl px-5 py-4 text-left">
-                {response}
-              </p>
-            )}
-
             <a
               href="#beans"
               className="mt-8 inline-flex items-center gap-3 bg-amber-500 hover:bg-amber-400 text-stone-900 font-semibold px-10 py-4 rounded-full text-base transition-all duration-300 hover:scale-105 shadow-lg shadow-amber-500/25"

@@ -1,8 +1,8 @@
 import Link from "next/link";
-import { CoffeeBean, getTagColor, roastGradients, roastTextColors } from "@/lib/beans";
+import Image from "next/image";
+import { CoffeeBean, getTagColor, roastTextColors } from "@/lib/beans";
 
 export default function BeanCard({ bean }: { bean: CoffeeBean }) {
-    const grad = roastGradients[bean.roast_level] ?? "from-amber-300 to-amber-500";
     const textCol = roastTextColors[bean.roast_level] ?? "text-stone-700";
 
     return (
@@ -10,28 +10,16 @@ export default function BeanCard({ bean }: { bean: CoffeeBean }) {
             href={`/beans/${bean.bean_id}`}
             className="group block bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 hover:-translate-y-1 border border-stone-100"
         >
-            {/* Image placeholder — swap this div for a real <Image /> when you have photos */}
-            <div className={`relative h-48 bg-gradient-to-br ${grad} flex items-center justify-center`}>
-                {/* Simple coffee bean icon */}
-                <svg 
-                    className={`w-16 h-16 opacity-20 ${textCol}`} 
-                    viewBox="0 0 100 100" 
-                    fill="currentColor"
-                >
-                    <ellipse 
-                        cx="50" 
-                        cy="50" 
-                        rx="40" 
-                        ry="25" 
-                    />
-                    <path 
-                        d="M10 50 Q50 25 90 50" 
-                        stroke="currentColor" 
-                        strokeWidth="4" 
-                        fill="none" 
-                    />
-                </svg>
-                {/* Roast badge */}
+            <div className="relative h-48 overflow-hidden bg-amber-100">
+                <Image
+                    src={`/beans/${bean.bean_id}.png`}
+                    alt={bean.name}
+                    fill
+                    className="object-cover group-hover:scale-105 transition-transform duration-500"
+                    sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
+                    loading="eager"
+                />
+                {/* Roast badge stays on top */}
                 <span className={`absolute top-3 right-3 text-xs font-semibold px-2.5 py-1 rounded-full bg-white/80 backdrop-blur-sm ${textCol}`}>
                     {bean.roast_level}
                 </span>

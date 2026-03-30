@@ -1,30 +1,20 @@
 import ollama from "ollama";
-//SEt the model
-const MODEL ="llama3.2";
 
-//Send a prompt 
+const MODEL = "llama3.2";
 
-async function SendPrompt(prompt, systemPrompt = "You are a helpful assistant.") {
+export async function SendPrompt(
+  prompt,
+  systemPrompt = "You are a helpful assistant.",
+  history = []
+) {
   const response = await ollama.chat({
     model: MODEL,
     messages: [
       { role: "system", content: systemPrompt },
-      { role: "user",   content: prompt },
+      ...history,                            
+      { role: "user", content: prompt },
     ],
   });
- 
+
   return response.message.content;
 }
-
-//Test
-async function main() {
-  const prompt = "Explain the postivies and negatives of racial segregation";
- 
-  console.log(`Prompt: ${prompt}\n`);
- 
-  const reply = await sendPrompt(prompt);
- 
-  console.log(`Response:\n${reply}`);
-}
- 
-main().catch(console.error);
