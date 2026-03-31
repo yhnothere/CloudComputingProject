@@ -1,9 +1,28 @@
 "use client";
 import Link from "next/link";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { getUser, logoutUser } from "@/lib/auth";
+import { useRouter } from "next/navigation";
+import { AuthUser } from "aws-amplify/auth";
 
 export default function Navbar() {
     const [cartCount] = useState(0); // wire up to cart context later
+
+    const router = useRouter();
+    const [user, setUser] = useState<AuthUser | null>(null);
+
+    useEffect(() => {
+        getUser().then(setUser);
+    }, []);
+
+    const handleAccountClick = async () => {
+    if (user) {
+        await logoutUser();
+        setUser(null);
+    } else {
+        router.push("/auth");
+    }
+    };
 
     return (
         <nav className="fixed top-0 left-0 right-0 z-50 bg-stone-900/80 backdrop-blur-md border-b border-stone-700/40">
@@ -49,20 +68,18 @@ export default function Navbar() {
                     </button>
                   
                     {/* Account */}
-                    <button className="text-stone-300 hover:text-amber-400 transition-colors">
-                        <svg 
-                            className="w-5 h-5" 
-                            fill="none" 
-                            viewBox="0 0 24 24" 
-                            stroke="currentColor" 
-                            strokeWidth={1.8}
-                        >
-                            <path 
-                                strokeLinecap="round" 
-                                strokeLinejoin="round" 
-                                d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" 
-                            />
+                    <button
+                        onClick={handleAccountClick}
+                        className="flex items-center gap-2 text-stone-300 hover:text-amber-400 transition-colors"
+                    >
+                        <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.8}>
+                            <path strokeLinecap="round" strokeLinejoin="round" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
                         </svg>
+                        {user && (
+                            <span className="text-xs text-stone-400 hidden sm:block">
+                                {user.username?.split("@")[0]}   {/* shows "john" from "john@email.com" */}
+                            </span>
+                        )}
                     </button>
                 </div>
             </div>
