@@ -2,7 +2,7 @@ import { DynamoDBClient } from "@aws-sdk/client-dynamodb";
 import { DynamoDBDocumentClient, GetCommand , ScanCommand } from  "@aws-sdk/lib-dynamodb";
 
 const client = new DynamoDBClient({
-  region: process.env.AWS_REGION,
+  region: "us-east-1",
   credentials: {
     accessKeyId: process.env.DYNAMO_ACCESS_KEY,
     secretAccessKey: process.env.DYNAMO_SECRET_KEY,
