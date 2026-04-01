@@ -1,6 +1,6 @@
 "use client";
 
-import { beans, CoffeeBean } from "@/lib/beans";
+import { CoffeeBean } from "@/lib/beans";
 import BeanCard from "@/components/BeanCard";
 import { useEffect, useState } from "react";
 
