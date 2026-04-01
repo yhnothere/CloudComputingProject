@@ -4,9 +4,9 @@ import { DynamoDBDocumentClient, GetCommand , ScanCommand } from  "@aws-sdk/lib-
 const client = new DynamoDBClient({
   region: process.env.AWS_REGION,
   credentials: {
-    accessKeyId: process.env.AWS_ACCESS_KEY_ID,
-    secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
-    sessionToken: process.env.AWS_SESSION_TOKEN, 
+    accessKeyId: process.env.DYNAMO_ACCESS_KEY,
+    secretAccessKey: process.env.DYNAMO_SECRET_KEY,
+    sessionToken: process.env.DYNAMO_SESSION_TOKEN,
   },
 });
 
