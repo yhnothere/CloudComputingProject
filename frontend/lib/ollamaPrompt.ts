@@ -6,15 +6,10 @@ const client = new Ollama({
 
 const MODEL = "llama3.2";
 
-type ChatMessage = {
-  role: "system" | "user" | "assistant";
-  content: string;
-};
-
 export async function SendPrompt(
   prompt: string,
   systemPrompt: string = "You are a helpful assistant.",
-  history: ChatMessage[] = [] 
+  history: [] 
 ) {
   const response = await client.chat({
     model: MODEL,
