@@ -14,7 +14,9 @@ export function configureAmplify() {
 
 import {
   signUp, signIn, signOut,
-  confirmSignUp, getCurrentUser, fetchAuthSession,
+  confirmSignUp, getCurrentUser,
+  fetchAuthSession, updateUserAttributes,
+  fetchUserAttributes,
 } from "aws-amplify/auth";
 
 export async function registerUser(email: string, password: string) {
@@ -43,6 +45,15 @@ export async function getUser(): Promise<AuthUser | null> {
   } catch {
     return null;
   }
+}
+
+export async function getUserAttributes() {
+  try { return await fetchUserAttributes(); } // includes name, email, sub
+  catch { return null; }
+}
+
+export async function updateDisplayName(name: string) {
+  return updateUserAttributes({ userAttributes: { name } });
 }
 
 export async function getToken() {
