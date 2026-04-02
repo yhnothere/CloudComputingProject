@@ -15,6 +15,9 @@ export default function Navbar() {
         getUser().then(setUser);
     }, []);
 
+    const handleCheckOut=async()=>{
+        router.push("/cart");
+    };
     const handleAccountClick = async () => {
     if (user) {
         await logoutUser();
@@ -46,7 +49,9 @@ export default function Navbar() {
                     </Link>
 
                     {/* Cart */}
-                    <button className="relative text-stone-300 hover:text-amber-400 transition-colors">
+                    <button 
+                        onClick={handleCheckOut}
+                        className="relative text-stone-300 hover:text-amber-400 transition-colors">
                         <svg 
                             className="w-5 h-5" 
                             fill="none" 
