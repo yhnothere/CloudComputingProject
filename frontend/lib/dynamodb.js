@@ -2,16 +2,27 @@ import { DynamoDBClient } from "@aws-sdk/client-dynamodb";
 import { DynamoDBDocumentClient, GetCommand , ScanCommand } from  "@aws-sdk/lib-dynamodb";
 
 function createDocClient() {
-  const client = new DynamoDBClient({
-    region: "us-east-1",
-    credentials: {
-      accessKeyId: process.env.DYNAMO_ACCESS_KEY,
-      secretAccessKey: process.env.DYNAMO_SECRET_KEY,
-      sessionToken: process.env.DYNAMO_SESSION_TOKEN,
-    },
-  });
 
-  return DynamoDBDocumentClient.from(client);
+    const accessKeyId = process.env.DYNAMO_ACCESS_KEY;
+    const secretAccessKey = process.env.DYNAMO_SECRET_KEY;
+    const sessionToken = process.env.DYNAMO_SESSION_TOKEN;
+    const region = process.env.DYNAMO_REGION;
+
+    if (!region)            throw new Error("Missing/Wrong env var: DYNAMO_REGION");
+    if (!accessKeyId)       throw new Error("Missing/Wrong env var: DYNAMO_ACCESS_KEY");
+    if (!secretAccessKey)   throw new Error("Missing/Wrong env var: DYNAMO_SECRET_KEY");
+    if (!sessionToken)      throw new Error("Missing/Wrong env var: DYNAMO_SESSION_TOKEN");
+
+    const client = new DynamoDBClient({
+        region,
+        credentials: {
+        accessKeyId,
+        secretAccessKey,
+        sessionToken,
+        },
+    });
+
+    return DynamoDBDocumentClient.from(client);
 }
 
 export async function getBean(bean_id) {
@@ -23,7 +34,7 @@ export async function getBean(bean_id) {
         Key: { bean_id },
         })
     );
-    console.log(result.Item);
+    //console.log(result.Item);
     return result.Item;
 }
 

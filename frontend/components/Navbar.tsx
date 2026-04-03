@@ -1,12 +1,15 @@
 "use client";
 import Link from "next/link";
+import Image from "next/image";
 import { useState, useEffect } from "react";
 import { getUser, getUserAttributes } from "@/lib/auth";
 import { useRouter } from "next/navigation";
 import { AuthUser } from "aws-amplify/auth";
+import { CartItem, getCart } from "@/lib/cardStorage"; // adjust path
 
 export default function Navbar() {
-    const [cartCount] = useState(0);
+    const [cart, setCart] = useState<CartItem[]>([]);
+    const [hovered, setHovered] = useState(false);
 
     const router = useRouter();
     const [user, setUser] = useState<AuthUser | null>(null);
@@ -21,6 +24,10 @@ export default function Navbar() {
                 });
             }
         });
+    }, []);
+
+    useEffect(() => {
+        setCart(getCart());
     }, []);
 
     const handleCheckOut = async () => { router.push("/cart"); };
@@ -54,20 +61,82 @@ export default function Navbar() {
                     </Link>
 
                     {/* Cart */}
+                    <div
+                    className="relative"
+                    onMouseEnter={() => setHovered(true)}
+                    onMouseLeave={() => setHovered(false)}
+                    >
+                    {/* Cart button */}
                     <button
                         onClick={handleCheckOut}
                         className="relative text-stone-300 hover:text-amber-400 transition-colors"
                         aria-label="Cart"
                     >
-                        <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.8}>
-                            <path strokeLinecap="round" strokeLinejoin="round" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z" />
+                        <svg
+                        className="w-5 h-5"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke="currentColor"
+                        strokeWidth={1.8}
+                        >
+                        <path
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"
+                        />
                         </svg>
-                        {cartCount > 0 && (
-                            <span className="absolute -top-2 -right-2 bg-amber-500 text-stone-900 text-xs font-bold rounded-full w-4 h-4 flex items-center justify-center">
-                                {cartCount}
-                            </span>
+
+                        {cart.length > 0 && (
+                        <span className="absolute -top-2 -right-2 bg-amber-500 text-stone-900 text-xs font-bold rounded-full w-4 h-4 flex items-center justify-center">
+                            {cart.length}
+                        </span>
                         )}
                     </button>
+
+                    {/* 🛒 Hover dropdown */}
+                    {hovered && (
+                        <div className="absolute right-0 mt-3 w-64 bg-white border border-stone-200 rounded-xl shadow-lg p-4 z-50">
+                        <h4 className="text-sm font-semibold mb-3 text-stone-700">
+                            Your Cart
+                        </h4>
+
+                        {cart.length === 0 ? (
+                            <p className="text-sm text-stone-400">Cart is empty</p>
+                        ) : (
+                            <div className="space-y-2 max-h-60 overflow-y-auto">
+                            {cart.map((item) => (
+                        <div
+                            key={item.id}
+                            className="flex items-center justify-between gap-2 text-sm"
+                        >
+                            {/* LEFT: image + name */}
+                            <div className="flex items-center gap-2 min-w-0">
+                            <div className="relative w-8 h-8 rounded-md overflow-hidden bg-stone-100">
+                                <Image
+                                src={`/beans/${item.id}.png`}
+                                alt={item.name}
+                                fill
+                                sizes="32px"
+                                className="object-cover"
+                                />
+                            </div>
+
+                            <span className="text-stone-700 truncate">
+                                {item.name}
+                            </span>
+                            </div>
+
+                            {/* RIGHT: quantity */}
+                            <span className="text-stone-500 shrink-0">
+                            x{item.quantity}
+                            </span>
+                        </div>
+                        ))} 
+                            </div>
+                        )}
+                        </div>
+                    )}
+                    </div>
 
                     {/* Account */}
                     <button onClick={handleAccountClick} className="flex items-center gap-2 text-stone-300 hover:text-amber-400 transition-colors">
