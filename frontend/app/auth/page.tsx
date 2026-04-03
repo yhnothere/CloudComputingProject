@@ -59,7 +59,7 @@ export default function AuthPage() {
       <div className="w-full max-w-md bg-white rounded-3xl p-8 shadow-2xl">
         <div className="text-center mb-8">
           <p className="text-amber-600 text-xs tracking-widest uppercase font-medium mb-2">
-            Bean WTF
+            Beans What The
           </p>
           <h1 className="text-2xl font-bold text-stone-900">
             {mode === "login" && "Welcome back"}
@@ -71,7 +71,7 @@ export default function AuthPage() {
               ? `We sent a 6-digit code to ${email}`
               : mode === "login"
               ? "Sign in to your account"
-              : "Join the Bean WTF family"}
+              : "Join the Beans What The family"}
           </p>
         </div>
         <div className="space-y-4">

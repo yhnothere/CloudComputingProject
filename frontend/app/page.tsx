@@ -1,8 +1,6 @@
 "use client";
 import Navbar from "@/components/Navbar";
-import BeanCard from "@/components/BeanCard";
 import ChatBot from "@/components/ChatBot";
-import { beans } from "@/lib/beans";
 import BeanList from "@/components/BeanList";
 
 export default function HomePage() {
@@ -28,7 +26,7 @@ export default function HomePage() {
             </p>
             <h1 className="text-6xl md:text-8xl font-bold text-white mb-6 tracking-tight leading-none">
               Beans<br />
-              <span className="text-amber-400">WTF</span>
+              <span className="text-amber-400">What The</span>
             </h1>
             <p className="text-stone-300 text-lg md:text-xl mb-12 max-w-lg mx-auto leading-relaxed">
               Sourced from the world&apos;s finest growing regions. Roasted to reveal every nuance, every note, every story.
@@ -64,28 +62,6 @@ export default function HomePage() {
             ))}
           </div>
         </section>
-
-        {/* ── Beans grid ───────────────────────────────────────── */}
-        {/* <section id="beans" className="bg-stone-50">
-          <div className="bg-stone-900 text-white py-16 px-6">
-            <div className="max-w-7xl mx-auto">
-              <p className="text-amber-400 text-xs tracking-widest uppercase mb-3">Our Collection</p>
-              <h2 className="text-4xl md:text-5xl font-bold mb-4">
-                20 Carefully Selected Beans
-              </h2>
-              <p className="text-stone-400 max-w-xl text-base">
-                From the misty highlands of Ethiopia to the volcanic slopes of Hawaii — each bean tells the story of its origin.
-              </p>
-            </div>
-          </div>
-          <div className="max-w-7xl mx-auto px-6 py-12">
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-              {beans.map((bean) => (
-                <BeanCard key={bean.bean_id} bean={bean} />
-              ))}
-            </div>
-          </div>
-        </section> */}
         <BeanList/>
       </main>
 
