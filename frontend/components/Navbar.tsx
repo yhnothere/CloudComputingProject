@@ -1,7 +1,7 @@
 "use client";
 import Link from "next/link";
 import { useState, useEffect } from "react";
-import { getUser, getUserAttributes, logoutUser } from "@/lib/auth";
+import { getUser, getUserAttributes } from "@/lib/auth";
 import { useRouter } from "next/navigation";
 import { AuthUser } from "aws-amplify/auth";
 

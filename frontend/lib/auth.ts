@@ -1,23 +1,16 @@
 import { Amplify } from "aws-amplify";
-import { AuthUser } from "aws-amplify/auth";
+import { AuthUser, signUp, signIn, signOut, confirmSignUp, getCurrentUser, fetchAuthSession, updateUserAttributes, fetchUserAttributes, } from "aws-amplify/auth";
 
 export function configureAmplify() {
   Amplify.configure({
     Auth: {
       Cognito: {
-        userPoolId: process.env.NEXT_PUBLIC_COGNITO_USER_POOL_ID!,
-        userPoolClientId: process.env.NEXT_PUBLIC_COGNITO_CLIENT_ID!,
+        userPoolId: process.env.COGNITO_USER_POOL_ID!,
+        userPoolClientId: process.env.COGNITO_CLIENT_ID!,
       },
     },
   });
 }
-
-import {
-  signUp, signIn, signOut,
-  confirmSignUp, getCurrentUser,
-  fetchAuthSession, updateUserAttributes,
-  fetchUserAttributes,
-} from "aws-amplify/auth";
 
 export async function registerUser(email: string, password: string) {
   return signUp({
