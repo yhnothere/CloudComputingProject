@@ -9,7 +9,6 @@
     "lint": "eslint"
   },
   "dependencies": {
-    "@aws-amplify/ui-react": "^2.1.9",
     "@aws-sdk/client-dynamodb": "^3.1019.0",
     "@aws-sdk/lib-dynamodb": "^3.1019.0",
     "aws-amplify": "^6.16.3",
